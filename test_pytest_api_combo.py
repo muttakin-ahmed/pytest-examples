@@ -1,5 +1,6 @@
 import pytest
 import requests
+from jsonschema import validate
 
 @pytest.fixture
 def base_url():
@@ -48,3 +49,21 @@ def test_delete_postings(base_url):
     # Delete an entry -->> DELETE request
     response = requests.delete(f"{base_url}/posts/1")
     assert response.status_code in [200, 204]
+
+def test_validate_jsonschema(base_url, payload_id = 1):
+    schema = {
+  "type": "object",
+  "properties": {"id": 
+                 {"type": "number"},
+                 "title": 
+                 {"type": "string"},
+                 "body": 
+                 {"type": "string"},
+                 "userId": 
+                 {"type": "number"},
+                 },
+  "required": ["id"]
+}
+    response = requests.get(f"{base_url}/posts/"+str(payload_id))
+    assert response.status_code == 200
+    validate(instance=response.json(), schema=schema)
