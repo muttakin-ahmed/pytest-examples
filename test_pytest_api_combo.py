@@ -71,5 +71,5 @@ def test_validate_jsonschema(base_url, payload_id = 1):
 def test_response_header(base_url, payload_id = 2):
     response = requests.get(f"{base_url}/posts/" + str(payload_id))
     assert response.headers["Content-type"] == "application/json; charset=utf-8"
-    assert "cloudfire" in response.headers["Server"].lower()
+    assert "cloudflare" in response.headers["Server"].lower()
     assert "Date" in response.headers
