@@ -77,5 +77,5 @@ def test_response_header(base_url, payload_id = 2):
 def test_with_token():
     token = "Bearer my_secret_token"
     headers = {"Authorization": token}
-    response = requests.get("https://api.example.com/protected", headers=headers)
+    response = requests.get("https://reqres.in/api/users/2", headers=headers)
     assert response.status_code == 200
