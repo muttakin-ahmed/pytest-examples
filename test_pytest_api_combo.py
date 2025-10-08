@@ -73,3 +73,9 @@ def test_response_header(base_url, payload_id = 2):
     assert response.headers["Content-type"] == "application/json; charset=utf-8"
     assert "cloudflare" in response.headers["Server"].lower()
     assert "Date" in response.headers
+
+def test_with_token():
+    token = "Bearer my_secret_token"
+    headers = {"Authorization": token}
+    response = requests.get("https://api.example.com/protected", headers=headers)
+    assert response.status_code == 200
